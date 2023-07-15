@@ -1,4 +1,7 @@
 // import logo from './logo.svg';
+import Heading from './Components/Heading';
+import Input from './Components/FormElements/Input';
+import Textarea from './Components/FormElements/Textarea';
 import './App.css';
 
 let pollinationsAi = {
@@ -79,7 +82,7 @@ let pollinationsAi = {
             requestReadyHolder
           );
           break;
-        case 4:
+        default: //case: 4
           if (this.status === 200) {
             imgTag.src = requestOpenUrl;
           }
@@ -167,25 +170,26 @@ window.addEventListener('load', () => {
   pollinationsAi.init();
 });
 
+// -------------------- React App --------------------
 function App() {
   return (
     <div className="allHolder">
-      <h1 class="text-2xl font-bold capitalize">generating <span
-        class="lowercase">pollinations.ai</span> image with javascript
-      </h1>
+      <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
 
-      <div id="errorBox" class="hidden"><strong>Add a description or source URL</strong></div>
+      <div id="errorBox" className="hidden"><strong>Add a description or source URL</strong></div>
 
-      <form class="flex flex-col">
-        <label for="">
+      <form className="flex flex-col">
+        <label htmlFor="">
           Description
-          <textarea id="description" rows="5" cols="33" required>Wide-eyed cartoon fox</textarea>
+          <Textarea id='description' valueText='Wide-eyed cartoon fox' />
         </label>
-        <label for="">
+
+        <label htmlFor="">
           Source URL
-          <textarea id="url" rows="5" cols="33" required></textarea>
+          <Textarea id='url' valueText='' />
         </label>
-        <label for="">
+
+        <label htmlFor="">
           Visual Style
           <select id="visualStyle">
             <option>- Select A Style -</option>
@@ -218,24 +222,29 @@ function App() {
             <option>Surrealism</option>
           </select>
         </label>
-        <label for="">Artist Reference<input id="artistReference" type="text"></input></label>
+
+        <label htmlFor="">
+          Artist Reference
+          <Input id='artistReference' />
+        </label>
+
         <button type="button" id="submitPrompt">Submit Prompt</button>
       </form>
 
-      <div id="serverConnection" class="hidden font-bold capitalize">
-        <h2 class="text-xl">server connection established</h2>
+      <div id="serverConnection" className="hidden font-bold capitalize">
+        <Heading headingType='h2' headingText='server connection established' />
       </div>
 
-      <div id="requestRecieved" class="hidden font-bold capitalize">
-        <h2 class="text-xl">request received</h2>
+      <div id="requestRecieved" className="hidden font-bold capitalize">
+        <Heading headingType='h2' headingText='request received' />
       </div>
 
-      <div id="processingRequest" class="hidden font-bold capitalize">
-        <h2 class="text-xl">processing request</h2>
+      <div id="processingRequest" className="hidden font-bold capitalize">
+        <Heading headingType='h2' headingText='processing request' />
       </div>
 
-      <div id="requestReady" class="hidden font-bold capitalize">
-        <h2 class="text-xl">your prompted image</h2>
+      <div id="requestReady" className="hidden font-bold capitalize">
+        <Heading headingType='h2' headingText='your prompted image' />
         <img id="generatedHolder" alt=""></img>
       </div>
     </div>
