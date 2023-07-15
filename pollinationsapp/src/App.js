@@ -1,9 +1,34 @@
 // import logo from './logo.svg';
 import Heading from './Components/Heading';
-import Input from './Components/FormElements/Input';
-import Textarea from './Components/FormElements/Textarea';
+import Form from './Components/FormElements/Form';
+import ServerStatus from './Components/Results/ServerStatus';
+import PromptResults from './Components/Results/PromptResults';
 import './App.css';
 
+// -------------------- React App --------------------
+function App() {
+  return (
+    <div className="allHolder">
+      <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
+
+      <div id="errorBox" className="hidden"><strong>Please add a description or source URL</strong></div>
+
+      <Form />
+
+      <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
+
+      <ServerStatus id='requestRecieved' headingType='h2' headingText='request received' />
+
+      <ServerStatus id='processingRequest' headingType='h2' headingText='processing request' />
+
+      <PromptResults id='requestReady' headingType='h2' headingText='your prompted image' />
+    </div>
+  );
+}
+
+export default App;
+
+// -------------------- App Logic --------------------
 let pollinationsAi = {
   version: '1.0.0',
   author: 'Al Augustin',
@@ -169,86 +194,3 @@ let pollinationsAi = {
 window.addEventListener('load', () => {
   pollinationsAi.init();
 });
-
-// -------------------- React App --------------------
-function App() {
-  return (
-    <div className="allHolder">
-      <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
-
-      <div id="errorBox" className="hidden"><strong>Add a description or source URL</strong></div>
-
-      <form className="flex flex-col">
-        <label htmlFor="">
-          Description
-          <Textarea id='description' valueText='Wide-eyed cartoon fox' />
-        </label>
-
-        <label htmlFor="">
-          Source URL
-          <Textarea id='url' valueText='' />
-        </label>
-
-        <label htmlFor="">
-          Visual Style
-          <select id="visualStyle">
-            <option>- Select A Style -</option>
-            <option>Abstract art</option>
-            <option>Abstract expressionism</option>
-            <option>Action painting</option>
-            <option>Art Deco</option>
-            <option>Art Nouveau</option>
-            <option>Baroque</option>
-            <option>Conceptual art</option>
-            <option>Constructivism</option>
-            <option>Cubism</option>
-            <option>Dada</option>
-            <option>Expressionism</option>
-            <option>Fauvism</option>
-            <option>Futurism</option>
-            <option>Impressionism</option>
-            <option>Line art</option>
-            <option>Minimalism</option>
-            <option>Modern art</option>
-            <option>Neoclassicism</option>
-            <option>Op art</option>
-            <option>Photorealism</option>
-            <option>Pop art</option>
-            <option>Post-Impressionism</option>
-            <option>Realism</option>
-            <option>Sculpture</option>
-            <option>Street art</option>
-            <option>Suprematism</option>
-            <option>Surrealism</option>
-          </select>
-        </label>
-
-        <label htmlFor="">
-          Artist Reference
-          <Input id='artistReference' />
-        </label>
-
-        <button type="button" id="submitPrompt">Submit Prompt</button>
-      </form>
-
-      <div id="serverConnection" className="hidden font-bold capitalize">
-        <Heading headingType='h2' headingText='server connection established' />
-      </div>
-
-      <div id="requestRecieved" className="hidden font-bold capitalize">
-        <Heading headingType='h2' headingText='request received' />
-      </div>
-
-      <div id="processingRequest" className="hidden font-bold capitalize">
-        <Heading headingType='h2' headingText='processing request' />
-      </div>
-
-      <div id="requestReady" className="hidden font-bold capitalize">
-        <Heading headingType='h2' headingText='your prompted image' />
-        <img id="generatedHolder" alt=""></img>
-      </div>
-    </div>
-  );
-}
-
-export default App;
