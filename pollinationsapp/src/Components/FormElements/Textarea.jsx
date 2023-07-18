@@ -1,5 +1,7 @@
 export default function Textarea(props) {
+  const { id, valueText } = props;
+
   return (
-    <textarea id={props.id} rows="5" cols="33" defaultValue={props.valueText}></textarea>
+    <textarea id={id} rows="5" cols="33" defaultValue={valueText}></textarea>
   )
 }

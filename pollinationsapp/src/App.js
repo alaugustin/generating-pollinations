@@ -141,6 +141,42 @@ let pollinationsAi = {
     };
   },
 
+  App: () => {
+    // -------------------- React App --------------------
+    return (
+      <div className="allHolder">
+        <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
+
+        <div id="errorBox" className="hidden"><strong>Please add a description or source URL</strong></div>
+
+        <Form
+          descriptionInputType='textarea'
+          descriptionId='description'
+          descriptionValueText='A whimsical, retro comic book scene of a woman laughing in the style of MAD Magazine test'
+          descriptionLabelText='Description'
+          sourceUrlInputType='textarea'
+          sourceUrlId='url'
+          sourceUrlValueText=''
+          sourceUrlLabelText='Source URL'
+          visualStyleIdid="visualStyle"
+          visualStyleLabelText='Visual Style'
+          visualStyleOptions={content.form.visualStyle.selectbox.options}
+          artistReferenceInputType='input'
+          artistReferenceId='artistReference'
+          artistReferenceLabelText='Artist Reference'
+        />
+
+        <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
+
+        <ServerStatus id='requestRecieved' headingType='h2' headingText='request received' />
+
+        <ServerStatus id='processingRequest' headingType='h2' headingText='processing request' />
+
+        <PromptResults id='requestReady' headingType='h2' headingText='your prompted image' />
+      </div>
+    );
+  },
+
   // -------------------- HANDLE ALL PAGE LEVEL EVENTS --------------------
   eventHandlers: () => {
     let {
@@ -181,25 +217,4 @@ window.addEventListener('load', () => {
   pollinationsAi.init();
 });
 
-// -------------------- React App --------------------
-function App() {
-  return (
-    <div className="allHolder">
-      <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
-
-      <div id="errorBox" className="hidden"><strong>Please add a description or source URL</strong></div>
-
-      <Form visualStyleArray={pollinationsAi} />
-
-      <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
-
-      <ServerStatus id='requestRecieved' headingType='h2' headingText='request received' />
-
-      <ServerStatus id='processingRequest' headingType='h2' headingText='processing request' />
-
-      <PromptResults id='requestReady' headingType='h2' headingText='your prompted image' />
-    </div>
-  );
-}
-
-export default App;
+export default pollinationsAi.App;

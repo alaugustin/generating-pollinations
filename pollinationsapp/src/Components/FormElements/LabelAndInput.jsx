@@ -2,21 +2,22 @@ import Textarea from "./Textarea";
 import Input from "./Input";
 
 export default function LabelAndInput(props) {
+  const { inputType, labelText, id, valueText } = props;
 
-  if (props.inputType === 'textarea') {
+  if (inputType === 'textarea') {
     return (
       <label htmlFor="">
-        {props.labelText}
-        <Textarea id={props.id} valueText={props.valueText} />
+        {labelText}
+        <Textarea id={id} valueText={valueText} />
       </label>
     );
   }
 
-  if (props.inputType === 'input') {
+  if (inputType === 'input') {
     return (
       <label htmlFor="">
-        {props.labelText}
-        <Input id={props.id} />
+        {labelText}
+        <Input id={id} />
       </label>
     );
   }

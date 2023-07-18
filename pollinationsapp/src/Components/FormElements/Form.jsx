@@ -1,47 +1,18 @@
 import LabelAndInput from "./LabelAndInput";
+import LabelAndSelect from "./LabelAndSelect";
 
 export default function Form(props) {
+  const { descriptionInputType, descriptionId, descriptionValueText, descriptionLabelText, sourceUrlInputType, sourceUrlId, sourceUrlValueText, sourceUrlLabelText, visualStyleIdid, visualStyleLabelText, visualStyleOptions, artistReferenceInputType, artistReferenceId, artistReferenceLabelText } = props;
+
   return (
     <form className="flex flex-col">
-      <LabelAndInput inputType='textarea' id='description' valueText='A whimsical, retro comic book scene of a woman laughing in the style of MAD Magazine' labelText='Description' />
+      <LabelAndInput inputType={descriptionInputType} id={descriptionId} valueText={descriptionValueText} labelText={descriptionLabelText} />
 
-      <LabelAndInput inputType='textarea' id='url' valueText='' labelText='Source URL' />
+      <LabelAndInput inputType={sourceUrlInputType} id={sourceUrlId} valueText={sourceUrlValueText} labelText={sourceUrlLabelText} />
 
-      <label htmlFor="">
-        Visual Style
-        <select id="visualStyle">
-          <option>- Select A Style -</option>
-          <option>Abstract art</option>
-          <option>Abstract expressionism</option>
-          <option>Action painting</option>
-          <option>Art Deco</option>
-          <option>Art Nouveau</option>
-          <option>Baroque</option>
-          <option>Conceptual art</option>
-          <option>Constructivism</option>
-          <option>Cubism</option>
-          <option>Dada</option>
-          <option>Expressionism</option>
-          <option>Fauvism</option>
-          <option>Futurism</option>
-          <option>Impressionism</option>
-          <option>Line art</option>
-          <option>Minimalism</option>
-          <option>Modern art</option>
-          <option>Neoclassicism</option>
-          <option>Op art</option>
-          <option>Photorealism</option>
-          <option>Pop art</option>
-          <option>Post-Impressionism</option>
-          <option>Realism</option>
-          <option>Sculpture</option>
-          <option>Street art</option>
-          <option>Suprematism</option>
-          <option>Surrealism</option>
-        </select>
-      </label>
+      <LabelAndSelect id={visualStyleIdid} labelText={visualStyleLabelText} selectOptions={visualStyleOptions} />
 
-      <LabelAndInput inputType='input' id='artistReference' labelText='Artist Reference' />
+      <LabelAndInput inputType={artistReferenceInputType} id={artistReferenceId} labelText={artistReferenceLabelText} />
 
       <button type="button" id="submitPrompt">Submit Prompt</button>
     </form>
