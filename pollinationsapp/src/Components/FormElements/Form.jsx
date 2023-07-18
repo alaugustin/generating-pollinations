@@ -3,7 +3,7 @@ import LabelAndInput from "./LabelAndInput";
 export default function Form(props) {
   return (
     <form className="flex flex-col">
-      <LabelAndInput inputType='textarea' id='description' valueText='Wide-eyed cartoon fox' labelText='Description' />
+      <LabelAndInput inputType='textarea' id='description' valueText='A whimsical, retro comic book scene of a woman laughing in the style of MAD Magazine' labelText='Description' />
 
       <LabelAndInput inputType='textarea' id='url' valueText='' labelText='Source URL' />
 

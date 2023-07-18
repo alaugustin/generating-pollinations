@@ -1,32 +1,10 @@
 // import logo from './logo.svg';
+import content from './data';
 import Heading from './Components/Heading';
 import Form from './Components/FormElements/Form';
 import ServerStatus from './Components/Results/ServerStatus';
 import PromptResults from './Components/Results/PromptResults';
 import './App.css';
-
-// -------------------- React App --------------------
-function App() {
-  return (
-    <div className="allHolder">
-      <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
-
-      <div id="errorBox" className="hidden"><strong>Please add a description or source URL</strong></div>
-
-      <Form />
-
-      <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
-
-      <ServerStatus id='requestRecieved' headingType='h2' headingText='request received' />
-
-      <ServerStatus id='processingRequest' headingType='h2' headingText='processing request' />
-
-      <PromptResults id='requestReady' headingType='h2' headingText='your prompted image' />
-    </div>
-  );
-}
-
-export default App;
 
 // -------------------- App Logic --------------------
 let pollinationsAi = {
@@ -41,6 +19,7 @@ let pollinationsAi = {
 
     // GLOBAL VARIABLES --------------------
     context.config = {
+      appData: content,
       imgTag: document.getElementById('generatedHolder'),
       promptDescription: '', // this is default; other prompt strings below are optional
       promptScene: '',
@@ -129,19 +108,26 @@ let pollinationsAi = {
     const {
       errorBox
     } = pollinationsAi.config
-    let promptString;
+    let promptStringArray = [];
+
     if (description) {
-      promptString = `${description} -- description`;
-    } else if (url) {
-      promptString = `${url} -- url`;
-    } else if (visualStyle) {
-      promptString = `${visualStyle} -- visual style`;
-    } else if (artistReference) {
-      promptString = `${artistReference} -- artist reference`;
+      promptStringArray.push(`${description} -- description`);
     }
 
-    if (promptString) {
-      const cleanedPromptString = promptString.replaceAll(' ', '%20');
+    if (url) {
+      promptStringArray.push(`${url} -- url`);
+    }
+
+    if (visualStyle) {
+      promptStringArray.push(`${visualStyle} -- visual style`);
+    }
+
+    if (artistReference) {
+      promptStringArray.push(`${artistReference} -- artist reference`);
+    }
+
+    if (promptStringArray.length > 0) {
+      const cleanedPromptString = promptStringArray.join(',').replaceAll(' ', '%20');
       const srcUrl = `https://image.pollinations.ai/prompt/{${cleanedPromptString}}`;
 
       errorBox.classList.add('hidden');
@@ -152,7 +138,7 @@ let pollinationsAi = {
       if (!description || !url) {
         console.log('load url and description message');
       }
-    }
+    };
   },
 
   // -------------------- HANDLE ALL PAGE LEVEL EVENTS --------------------
@@ -194,3 +180,26 @@ let pollinationsAi = {
 window.addEventListener('load', () => {
   pollinationsAi.init();
 });
+
+// -------------------- React App --------------------
+function App() {
+  return (
+    <div className="allHolder">
+      <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
+
+      <div id="errorBox" className="hidden"><strong>Please add a description or source URL</strong></div>
+
+      <Form visualStyleArray={pollinationsAi} />
+
+      <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
+
+      <ServerStatus id='requestRecieved' headingType='h2' headingText='request received' />
+
+      <ServerStatus id='processingRequest' headingType='h2' headingText='processing request' />
+
+      <PromptResults id='requestReady' headingType='h2' headingText='your prompted image' />
+    </div>
+  );
+}
+
+export default App;

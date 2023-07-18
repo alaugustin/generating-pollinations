@@ -7,7 +7,7 @@ export default function LabelAndInput(props) {
     return (
       <label htmlFor="">
         {props.labelText}
-        <Textarea id={props.id} valueText='Wide-eyed cartoon fox' />
+        <Textarea id={props.id} valueText={props.valueText} />
       </label>
     );
   }
