@@ -16,7 +16,7 @@ export default function Selectbox(props) {
   const { id, options } = props;
 
   return (
-    <select id={id}>
+    <select id={id} className="p-2">
       <Option attributes={options} />
     </select>
   )

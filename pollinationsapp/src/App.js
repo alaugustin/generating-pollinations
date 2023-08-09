@@ -142,9 +142,13 @@ let pollinationsAi = {
   },
 
   App: () => {
+    const commonFormLabelClasses = 'basis-1/2 flex flex-col';
+    const leftCellClasses = `pr-1 ${commonFormLabelClasses}`;
+    const rightCellClasses = `pl-1 ${commonFormLabelClasses}`;
+
     // -------------------- React App --------------------
     return (
-      <div className="allHolder">
+      <div className="allHolder px-4">
         <Heading headingType='h1' headingText='Generating pollinations.ai Image With Javascript' />
 
         <div id="errorBox" className="hidden"><strong>Please add a description or source URL</strong></div>
@@ -152,18 +156,22 @@ let pollinationsAi = {
         <Form
           descriptionInputType='textarea'
           descriptionId='description'
-          descriptionValueText='A whimsical, retro comic book scene of a woman laughing in the style of MAD Magazine test'
+          descriptionValueText='A whimsical, retro comic book scene of a woman laughing in the style of MAD Magazine'
           descriptionLabelText='Description'
+          descriptionLabelClasses={leftCellClasses}
           sourceUrlInputType='textarea'
           sourceUrlId='url'
           sourceUrlValueText=''
           sourceUrlLabelText='Source URL'
+          sourceUrlLabelClasses={rightCellClasses}
           visualStyleIdid="visualStyle"
           visualStyleLabelText='Visual Style'
+          visualStyleLabelClasses={leftCellClasses}
           visualStyleOptions={content.form.visualStyle.selectbox.options}
           artistReferenceInputType='input'
           artistReferenceId='artistReference'
           artistReferenceLabelText='Artist Reference'
+          artistReferenceLabelClasses={rightCellClasses}
         />
 
         <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
@@ -192,8 +200,9 @@ let pollinationsAi = {
     } = pollinationsAi.config;
 
     visualStyleSelector.addEventListener('change', (e) => {
-      const { target } = e;
-      const selectedStyle = target[target.selectedIndex].innerText;
+      const { options } = e.target;
+      const selectedStyle = options[options.selectedIndex].value;
+
       promptVisualStyle = selectedStyle;
     });
 
