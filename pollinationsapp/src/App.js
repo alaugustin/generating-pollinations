@@ -46,100 +46,100 @@ let pollinationsAi = {
     console.log(pollinationsAi.config);
   },
 
-  hideShowStateDivs: (divToShow, ...divsToHide) => {
-    divToShow.classList.remove('hidden');
-    divsToHide.forEach(div => div.classList.add('hidden'));
-  },
+  // hideShowStateDivs: (divToShow, ...divsToHide) => {
+  //   divToShow.classList.remove('hidden');
+  //   divsToHide.forEach(div => div.classList.add('hidden'));
+  // },
 
-  stateChangeHandler: (requestOpenUrl) => {
-    const xhttp = new XMLHttpRequest();
-    const {
-      serverConnectionHolder,
-      requestRecievedHolder,
-      processingRequestHolder,
-      requestReadyHolder,
-      imgTag
-    } = pollinationsAi.config
+  // stateChangeHandler: (requestOpenUrl) => {
+  //   const xhttp = new XMLHttpRequest();
+  //   const {
+  //     serverConnectionHolder,
+  //     requestRecievedHolder,
+  //     processingRequestHolder,
+  //     requestReadyHolder,
+  //     imgTag
+  //   } = pollinationsAi.config
 
-    xhttp.onreadystatechange = function () {
-      switch (this.readyState) {
-        case 1:
-          pollinationsAi.hideShowStateDivs(
-            serverConnectionHolder,
-            requestRecievedHolder,
-            processingRequestHolder,
-            requestReadyHolder
-          );
-          break;
-        case 2:
-          pollinationsAi.hideShowStateDivs(requestRecievedHolder,
-            serverConnectionHolder,
-            processingRequestHolder,
-            requestReadyHolder
-          );
-          break;
-        case 3:
-          pollinationsAi.hideShowStateDivs(
-            processingRequestHolder,
-            serverConnectionHolder,
-            requestRecievedHolder,
-            requestReadyHolder
-          );
-          break;
-        default: //case: 4
-          if (this.status === 200) {
-            imgTag.src = requestOpenUrl;
-          }
-          pollinationsAi.hideShowStateDivs(
-            requestReadyHolder,
-            serverConnectionHolder,
-            requestRecievedHolder,
-            processingRequestHolder
-          );
-          break;
-      }
-    };
+  //   xhttp.onreadystatechange = function () {
+  //     switch (this.readyState) {
+  //       case 1:
+  //         pollinationsAi.hideShowStateDivs(
+  //           serverConnectionHolder,
+  //           requestRecievedHolder,
+  //           processingRequestHolder,
+  //           requestReadyHolder
+  //         );
+  //         break;
+  //       case 2:
+  //         pollinationsAi.hideShowStateDivs(requestRecievedHolder,
+  //           serverConnectionHolder,
+  //           processingRequestHolder,
+  //           requestReadyHolder
+  //         );
+  //         break;
+  //       case 3:
+  //         pollinationsAi.hideShowStateDivs(
+  //           processingRequestHolder,
+  //           serverConnectionHolder,
+  //           requestRecievedHolder,
+  //           requestReadyHolder
+  //         );
+  //         break;
+  //       default: //case: 4
+  //         if (this.status === 200) {
+  //           imgTag.src = requestOpenUrl;
+  //         }
+  //         pollinationsAi.hideShowStateDivs(
+  //           requestReadyHolder,
+  //           serverConnectionHolder,
+  //           requestRecievedHolder,
+  //           processingRequestHolder
+  //         );
+  //         break;
+  //     }
+  //   };
 
-    xhttp.open('GET', requestOpenUrl);
-    xhttp.send();
-  },
+  //   xhttp.open('GET', requestOpenUrl);
+  //   xhttp.send();
+  // },
 
-  buildUrl: (description, url, visualStyle, artistReference) => {
-    const {
-      errorBox
-    } = pollinationsAi.config
-    let promptStringArray = [];
+  // buildUrl: (description, url, visualStyle, artistReference) => {
+  //   const {
+  //     errorBox
+  //   } = pollinationsAi.config
+  //   let promptStringArray = [];
 
-    if (description) {
-      promptStringArray.push(`${description} -- description`);
-    }
+  //   if (description) {
+  //     promptStringArray.push(`${description} -- description`);
+  //   }
 
-    if (url) {
-      promptStringArray.push(`${url} -- url`);
-    }
+  //   if (url) {
+  //     promptStringArray.push(`${url} -- url`);
+  //   }
 
-    if (visualStyle) {
-      promptStringArray.push(`${visualStyle} -- visual style`);
-    }
+  //   if (visualStyle) {
+  //     promptStringArray.push(`${visualStyle} -- visual style`);
+  //   }
 
-    if (artistReference) {
-      promptStringArray.push(`${artistReference} -- artist reference`);
-    }
+  //   if (artistReference) {
+  //     promptStringArray.push(`${artistReference} -- artist reference`);
+  //   }
 
-    if (promptStringArray.length > 0) {
-      const cleanedPromptString = promptStringArray.join(',').replaceAll(' ', '%20');
-      const srcUrl = `https://image.pollinations.ai/prompt/{${cleanedPromptString}}`;
+  //   if (promptStringArray.length > 0) {
+  //     const cleanedPromptString = promptStringArray.join(',').replaceAll(' ', '%20');
+  //     const srcUrl = `https://image.pollinations.ai/prompt/{${cleanedPromptString}}`;
 
-      errorBox.classList.add('hidden');
-      pollinationsAi.stateChangeHandler(srcUrl);
-    } else {
-      errorBox.classList.remove('hidden');
+  //     errorBox.classList.add('hidden');
+  //     pollinationsAi.stateChangeHandler(srcUrl);
+  //   } else {
+  //     errorBox.classList.remove('hidden');
 
-      if (!description || !url) {
-        console.log('load url and description message');
-      }
-    };
-  },
+  //     if (!description || !url) {
+  //       console.log('load url and description message');
+  //     }
+  //   };
+  // },
 
   App: () => {
     const commonFormLabelClasses = 'basis-1/2 flex flex-col';
@@ -172,6 +172,7 @@ let pollinationsAi = {
           artistReferenceId='artistReference'
           artistReferenceLabelText='Artist Reference'
           artistReferenceLabelClasses={rightCellClasses}
+          submitButtonLabel='Submit Prompt'
         />
 
         <ServerStatus id='serverConnection' headingType='h2' headingText='server connection established' />
@@ -187,37 +188,43 @@ let pollinationsAi = {
 
   // -------------------- HANDLE ALL PAGE LEVEL EVENTS --------------------
   eventHandlers: () => {
-    let {
-      promptDescription,
-      promptUrl,
-      promptVisualStyle,
-      promptArtistReference,
-      descriptionText,
-      urlText,
-      visualStyleSelector,
-      artistRefText,
-      submitButton
-    } = pollinationsAi.config;
+    console.log('event handlers here');
+    // let {
+    //   promptDescription,
+    //   promptUrl,
+    //   promptVisualStyle,
+    //   promptArtistReference,
+    //   descriptionText,
+    //   urlText,
+    //   visualStyleSelector,
+    //   artistRefText,
+    //   submitButton
+    // } = pollinationsAi.config;
 
-    visualStyleSelector.addEventListener('change', (e) => {
-      const { options } = e.target;
-      const selectedStyle = options[options.selectedIndex].value;
+    // if (visualStyleSelector) {
+    //   visualStyleSelector.addEventListener('change', (e) => {
+    //     const { options } = e.target;
+    //     const selectedStyle = options[options.selectedIndex].value;
 
-      promptVisualStyle = selectedStyle;
-    });
+    //     promptVisualStyle = selectedStyle;
+    //   });
+    // }
 
-    submitButton.addEventListener('click', () => {
-      promptDescription = descriptionText.value;
-      promptUrl = urlText.value;
-      promptArtistReference = artistRefText.value;
+    // if (submitButton) {
 
-      pollinationsAi.buildUrl(
-        promptDescription,
-        promptUrl,
-        promptVisualStyle,
-        promptArtistReference
-      );
-    });
+    //   submitButton.addEventListener('click', () => {
+    //     promptDescription = descriptionText.value;
+    //     promptUrl = urlText.value;
+    //     promptArtistReference = artistRefText.value;
+
+    //     pollinationsAi.buildUrl(
+    //       promptDescription,
+    //       promptUrl,
+    //       promptVisualStyle,
+    //       promptArtistReference
+    //     );
+    //   });
+    // }
   },
 };
 

@@ -1,8 +1,9 @@
 import LabelAndInput from "./LabelAndInput";
 import LabelAndSelect from "./LabelAndSelect";
+import Button from "./Button";
 
 export default function Form(props) {
-  const { descriptionInputType, descriptionId, descriptionValueText, descriptionLabelText, sourceUrlInputType, sourceUrlId, sourceUrlValueText, sourceUrlLabelText, visualStyleIdid, visualStyleLabelText, visualStyleOptions, artistReferenceInputType, artistReferenceId, artistReferenceLabelText, descriptionLabelClasses, sourceUrlLabelClasses, visualStyleLabelClasses, artistReferenceLabelClasses } = props;
+  const { descriptionInputType, descriptionId, descriptionValueText, descriptionLabelText, sourceUrlInputType, sourceUrlId, sourceUrlValueText, sourceUrlLabelText, visualStyleIdid, visualStyleLabelText, visualStyleOptions, artistReferenceInputType, artistReferenceId, artistReferenceLabelText, descriptionLabelClasses, sourceUrlLabelClasses, visualStyleLabelClasses, artistReferenceLabelClasses, submitButtonLabel } = props;
   const commonFieldsetClasses = 'flex pb-8';
 
   return (
@@ -19,7 +20,7 @@ export default function Form(props) {
         <LabelAndInput inputType={artistReferenceInputType} id={artistReferenceId} labelText={artistReferenceLabelText} customLabelClassName={artistReferenceLabelClasses} />
       </fieldset>
 
-      <button type="button" className="basis-full" id="submitPrompt">Submit Prompt</button>
+      <Button buttonLabel={submitButtonLabel}/>
     </form>
   )
 }
